@@ -11,7 +11,7 @@ function formatDateISO(date) {
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
-return `${yyyy}-${mm}-${dd}` ;
+  return ${yyyy}-${mm}-${dd};
 }
 
 function startOfMonth(date) {
@@ -208,36 +208,34 @@ export default function CalendarApp() {
   }
 
   // Render helpers
-function renderCell(day) {
-  if (!day) return <div className="empty-cell" />;
-  const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), day));
-  const evs = events[dateIso] || [];
-  const isToday = formatDateISO(new Date()) === dateIso;
-  return (
-    // CORRIGIDO: Uso de Template String (`) para combinar classes
-    <div className={`day-cell ${isToday ? "today" : ""}`}>
-      <div className="day-number">{day}</div>
+  function renderCell(day) {
+    if (!day) return <div className="empty-cell" />;
+    const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), day));
+    const evs = events[dateIso] || [];
+    const isToday = formatDateISO(new Date()) === dateIso;
+    return (
+      <div className={day-cell ${isToday ? "today" : ""}}>
+        <div className="day-number">{day}</div>
 
-      <div className="events-list">
-        {evs.map(ev => (
-          // CORRIGIDO: Uso de Template String (`) para construir a className
-          <div key={ev.id} className={`event-pill type-${ev.type.replace(/\s/g,"-") } ${ev.completed ? "completed":""}`}>
-            <div className="event-title">{ev.title}</div>
-            <div className="event-actions">
-              <button title="Marcar concluído" onClick={() => toggleComplete(ev.id, dateIso)} className="small-btn">✓</button>
-              <button title="Editar" onClick={() => editEvent(ev)} className="small-btn">✎</button>
-              <button title="Excluir" onClick={() => deleteEvent(ev.id, dateIso)} className="small-btn danger">🗑</button>
+        <div className="events-list">
+          {evs.map(ev => (
+            <div key={ev.id} className={event-pill type-${ev.type.replace(/\s/g,"-") } ${ev.completed ? "completed":""}}>
+              <div className="event-title">{ev.title}</div>
+              <div className="event-actions">
+                <button title="Marcar concluído" onClick={() => toggleComplete(ev.id, dateIso)} className="small-btn">✓</button>
+                <button title="Editar" onClick={() => editEvent(ev)} className="small-btn">✎</button>
+                <button title="Excluir" onClick={() => deleteEvent(ev.id, dateIso)} className="small-btn danger">🗑</button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="add-day-btn">
-        <button onClick={() => openAddModal(dateIso)} title="Adicionar evento nesta data">+</button>
+        <div className="add-day-btn">
+          <button onClick={() => openAddModal(dateIso)} title="Adicionar evento nesta data">+</button>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
     <div className="cal-app">
