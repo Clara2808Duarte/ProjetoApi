@@ -16,20 +16,27 @@ export default function Testimonials() {
 
   const grades = ["Todos", "2º Ano", "3º Ano", "4º Ano", "5º Ano", "EX-ALUNO"];
 
+  // Normaliza texto (remove acentos e deixa em lowercase) para comparação confiável
+  const normalize = (str) =>
+    String(str)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // remove diacríticos
+      .toLowerCase();
+
   const filtered = filter === "Todos"
     ? data
-    : data.filter(item => item.grade.toLowerCase().includes(filter.toLowerCase()));
+    : data.filter(item => normalize(item.grade).includes(normalize(filter)));
 
   return (
     <div className="testimonials-container">
-
       <h2 className="section-title">O que dizem nossos alunos</h2>
 
       <div className="filter-buttons">
         {grades.map(g => (
           <button
             key={g}
-            className={filter-btn ${filter === g ? "active" : ""}}
+            type="button"
+            className={`filter-btn ${filter === g ? "active" : ""}`}
             onClick={() => setFilter(g)}
           >
             {g}
@@ -39,10 +46,9 @@ export default function Testimonials() {
 
       <div className="cards-grid">
         {filtered.map((student, index) => (
-          <div key={index} className="testimonial-card">
-
+          <div key={`${student.name}-${index}`} className="testimonial-card">
             <div className="avatar" style={{ background: student.color }}>
-              {student.name.charAt(0)}
+              {student.name.charAt(0).toUpperCase()}
             </div>
 
             <div className="card-info">
@@ -50,13 +56,13 @@ export default function Testimonials() {
               <span className="student-grade">{student.grade}</span>
               <p className="student-text">"{student.text}"</p>
 
-              <div className="stars">★★★★★</div>
+              <div className="stars" aria-hidden>★★★★★</div>
             </div>
-
           </div>
         ))}
       </div>
-<Footer />
+
+      <Footer />
     </div>
   );
 }
