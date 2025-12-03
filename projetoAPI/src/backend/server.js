@@ -1,8 +1,11 @@
-const GEMINI_API_KEY = "AIzaSyBJ56oAjoJQ9UT_5BpozAWkIjNyJr9rgSI";
 
-// ===============================
-// FUNÇÃO PRINCIPAL
-// ===============================
+
+// server.js
+import axios from "axios";
+
+// 📌 Pega a chave do .env
+const API_KEY = import.meta.env.VITE_API_GEMINI;
+
 export async function enviarParaGemini(message) {
   if (!message) return "Envie uma mensagem válida.";
 
@@ -45,36 +48,29 @@ export async function enviarParaGemini(message) {
     "${message}"
   `;
 
-  let respostaIA = "Erro ao gerar resposta.";
-
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`,
+const res = await axios.post(
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite-preview:generateContent"
+
+,
+  {
+    contents: [
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${GEMINI_API_KEY}` // ⚡ token correto
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-          temperature: 0.7,
-        }),
+        parts: [{ text: prompt }]
       }
-    );
+    ]
+  },
+  {
+    headers: { "Content-Type": "application/json" },
+    params: { key: API_KEY }
+  }
+);
 
-    const data = await response.json();
+    const texto = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    const texto = data?.candidates?.[0]?.content?.[0]?.text || null;
-
-    if (texto) {
-      respostaIA = texto;
-    } else {
-      console.warn("A API retornou sem conteúdo.");
-    }
+    return texto || "Nenhuma resposta recebida da IA.";
   } catch (err) {
     console.error("Erro ao chamar a API:", err);
+    return "Erro ao conectar à IA.";
   }
-
-  return respostaIA;
 }

@@ -1,18 +1,16 @@
 .footer {
   background: #000;
-  width: 93vw;
+  width: 92vw;
   color: #fff;
   padding: 40px 40px;
-  margin-top: 50px;
+  margin-top: 10px;
   border-top: 3px solid #e354a6;
   font-family: "Inter", sans-serif;
-}
-
-.footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
 }
+
 
 .footer-section {
     display: flex;
