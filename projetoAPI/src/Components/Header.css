@@ -1,0 +1,104 @@
+/* ====== CONTAINER PRINCIPAL ====== */
+.hero-container {
+  width: 60vw;
+  margin-left: 60px;
+  background: #000;
+  border-radius: 24px;
+  padding: 70px 30px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/dark_geometric.png");
+  background-size: cover;
+}
+
+/* ====== CONTEÚDO CENTRAL ====== */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.highlight {
+  color: #ff4db8;
+}
+
+.hero-subtitle {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #e6e6e6;
+}
+
+/* ====== BOTÕES ====== */
+.hero-buttons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* BOTÃO IA */
+.btn-ia {
+  background: #ff4db8;
+  color: white;
+  font-size: 1rem;
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(255, 77, 184, 0.4);
+  transition: 0.2s;
+}
+
+.btn-ia:hover {
+  background: #ff2ca5;
+}
+
+/* Ícone do botão IA */
+.btn-ia i {
+  font-size: 1.1rem;
+}
+
+/* BOTÃO PROFESSORA */
+.btn-prof {
+  background: transparent;
+  color: white;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: 2px solid #ff4db8;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.btn-prof:hover {
+  background: #ff4db8;
+  color: white;
+}
+
+/* ====== RESPONSIVIDADE ======
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+} */
