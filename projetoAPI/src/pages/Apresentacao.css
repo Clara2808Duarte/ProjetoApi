@@ -1,19 +1,22 @@
+/* ====== CONTAINER DOS CARDS ====== */
 .cards-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  flex-direction: column;
-  gap: 40px;
+  align-items: center;      
+  width: 100%;
   padding: 40px 0;
-  flex-wrap: wrap;
+  gap: 40px;
 }
 
+/* ====== INDIVIDUAL CARD ====== */
 .card-item {
   width: 260px;
   background: white;
   border-radius: 16px;
   padding: 35px 20px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   border-top: 4px solid #ff66b3;
   transition: transform 0.2s ease;
 }
@@ -22,6 +25,7 @@
   transform: translateY(-5px);
 }
 
+/* ====== ÍCONE ====== */
 .card-icon {
   width: 70px;
   height: 70px;
@@ -35,6 +39,7 @@
   color: #ff66b3;
 }
 
+/* ====== TÍTULO ====== */
 .card-title {
   font-size: 18px;
   font-weight: 600;
@@ -42,6 +47,7 @@
   color: #333;
 }
 
+/* ====== TEXTO ====== */
 .card-text {
   font-size: 15px;
   color: #555;
