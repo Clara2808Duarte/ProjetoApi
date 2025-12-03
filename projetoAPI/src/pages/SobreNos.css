@@ -1,0 +1,216 @@
+.contnr {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;           /* centraliza o contêiner na tela */
+  padding: 40px 20px;       /* dá um respiro nas bordas */
+}  
+
+.tit{
+  color: #ff69b4;
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+}
+
+.subtit {
+  color: #0c0c0c;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.gridd {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas fixas lado a lado */
+  gap: 30px;                              /* espaço entre os cards */
+  justify-items: center;                  /* centraliza cada card */
+}
+.cards {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.35s, box-shadow 0.35s;
+  border: 2px solid rgba(255,77,167,0.12);           /* borda suave padrão */
+  position: relative;
+  overflow: visible; /* permite que o glow ultrapasse o card */
+}
+
+/* borda rosa brilhante visível */
+.cards::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events:none;
+  box-shadow: 0 6px 18px rgba(255,77,167,0.12), 0 0 0 3px rgba(255,255,255,0.02) inset;
+  transition: box-shadow .35s, transform .35s;
+}
+
+/* hover mais evidente */
+.cards:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(255,77,167,0.12);
+}
+.cards:hover::after {
+  box-shadow: 0 18px 40px rgba(255,77,167,0.18), 0 0 0 2px rgba(255,255,255,0.02) inset;
+}
+
+/* --- Container da imagem: agora o glow fica atrás da foto --- */
+.imag-conter {
+  position: relative;
+  border-radius: 50%;
+  /* trocar overflow:hidden por visible para glow aparecer fora do círculo */
+  overflow: visible;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 15px auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* O elemento 'glow' - círculo degradê atrás da foto */
+.imag-conter .glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  filter: blur(14px);
+  opacity: 0.95;
+  transition: transform 0.6s ease, filter 0.4s ease, opacity 0.4s;
+}
+
+/* A imagem fica acima do glow */
+.imag-conter img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform 0.6s ease, filter 0.6s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* hover da imagem com zoom e leve rotação */
+.imag-conter:hover img {
+  transform: scale(1.08) rotate(1.5deg);
+  filter: brightness(1.06) saturate(1.05);
+}
+
+/* hover do glow maior e menos blur */
+.imag-conter:hover .glow {
+  transform: translate(-50%, -50%) scale(1.06);
+  filter: blur(10px);
+  opacity: 1;
+}
+.cards-0 .glow {
+  background: conic-gradient(
+    from 0deg,
+    #ff9ff3,
+    #feca57,
+    #ff6b6b,
+    #feca57,
+    #ff9ff3
+  );
+}
+.cards-1 .glow {
+  background: conic-gradient(
+    from 0deg,
+    #1dd1a1,
+    #10ac84,
+    #00d2d3,
+    #10ac84,
+    #1dd1a1
+  );
+}
+.cards-2 .glow {
+  background: conic-gradient(
+    from 0deg,
+    #54a0ff,
+    #2e86de,
+    #5f27cd,
+    #2e86de,
+    #54a0ff
+  );
+}
+.cards-3 .glow {
+  background: conic-gradient(
+    from 0deg,
+    #f368e0,
+    #ee5253,
+    #ff9ff3,
+    #ee5253,
+    #f368e0
+  );
+}
+
+.imag-conter:hover .glow {
+  opacity: 0.8;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.nome {
+  color: #0e0e0e;
+  margin: 10px 0 5px 0;
+}
+
+.desc {
+  color: #090909;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+@media screen and (min-width: 480px) and (max-width: 720px) {
+  .contnr {
+    padding: 30px 15px;
+  }
+
+  .tit {
+     font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  .subtit {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+  }
+
+  .gridd {
+    grid-template-columns: repeat(2, 1fr); /* de 4 para 2 colunas */
+    gap: 20px;
+  }
+
+  .cards {
+    padding: 15px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .imag-conter {
+    width: 20vw;
+    height: 10vh;
+    margin-bottom: 10px;
+  }
+
+  .nome {
+    font-size: 1.2rem;
+  }
+
+  .desc {
+    font-size: 1.2rem;
+  }
+}
