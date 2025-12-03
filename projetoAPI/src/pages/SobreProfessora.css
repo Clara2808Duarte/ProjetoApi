@@ -1,0 +1,95 @@
+.profile-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px 0;
+  font-family: Arial, sans-serif;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid #ff69b4;
+  background: #ffe6f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar img {
+  width: 80px;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(64%) saturate(2421%)
+    hue-rotate(302deg) brightness(97%) contrast(95%);
+}
+
+.info {
+  max-width: 450px;
+  text-align: left;
+}
+
+.bar {
+  width: 8px;
+  height: 30px;
+  background-color: #ff69b4;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tags span {
+  background-color: #ff69b4;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 20px;
+}
+
+.bottom-buttons button {
+  padding: 12px 36px;
+  border: 2px solid #ff69b4;
+  background: white;
+  color: #ff69b4;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.bottom-buttons button:hover {
+  background: #ff69b4;
+  color: white;
+}
