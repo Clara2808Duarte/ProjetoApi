@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar";
 import Apresentacao from "./pages/Apresentacao";
 import Professora from "./pages/SobreProfessora";
 import Calendario from "./pages/Calendario";
-import Depoimentos from "./pages/Depoimentos";
+import Depoimentos from "./pages/Depoimento";
 import Colabore from "./pages/SobreNos";
 
 // IMPORTA O CHAT
