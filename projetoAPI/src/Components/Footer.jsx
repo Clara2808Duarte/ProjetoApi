@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -12,9 +13,11 @@ export default function Footer() {
       <div className="footer-section">
         <h4>Links Rápidos</h4>
         <ul>
-          <li>Calendário Escolar</li>
-          <li>IA Pedagógica</li>
-          <li>Trabalho Conosco</li>
+          <li>
+          <Link to="/calendario">
+            <i></i> Calendário Pedagógico
+          </Link>
+        </li>
         </ul>
       </div>
 
