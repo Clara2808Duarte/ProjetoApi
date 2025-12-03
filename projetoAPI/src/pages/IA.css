@@ -1,0 +1,340 @@
+/* ================================
+   CONTAINER GERAL
+================================ */
+.chat-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ================================
+   CABEÇALHO
+================================ */
+.chat-header {
+  background: #ff4fa6;
+  padding: 20px;
+  border-radius: 12px 12px 0 0;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.chat-subtitle {
+  font-size: 12px;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+
+/* ================================
+   ÁREA DE MENSAGENS
+================================ */
+.chat-area {
+  padding: 20px;
+  height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.msg-bubble {
+  padding: 10px 14px;
+  border-radius: 10px;
+  max-width: 75%;
+  word-break: break-word;
+}
+
+.msg-user {
+  align-self: flex-end;
+  background: #ffb3d8;
+}
+
+.msg-bot {
+  align-self: flex-start;
+  background: #f1f1f1;
+}
+
+.msg-typing {
+  align-self: flex-start;
+  background: #f1f1f1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+
+/* ================================
+   INPUT DE MENSAGEM
+================================ */
+.chat-input-area {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.chat-send-button {
+  background: #ff4fa6;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+
+/* ================================
+   BOTÃO DE DESCER
+================================ */
+.scroll-button {
+  position: absolute;
+  bottom: 90px;
+  right: 20px;
+  background: #ff4fa6;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  z-index: 50;
+  flex-direction: calc(10px + 20%);
+}
+
+.pdf-button {
+  background: #ff66b3;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(255, 102, 179, 0.35);
+  transition: 0.2s ease-in-out;
+  width: fit-content;
+}
+
+.pdf-button:hover {
+  background: #e354a6;
+  box-shadow: 0 4px 10px rgba(227, 84, 166, 0.55);
+}
+
+.pdf-button:active {
+  transform: scale(0.95);
+}
+
+.msg-bot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.clear-button {
+  background: #000000c6;        /* Rosa */
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 25px;           /* Deixa mais para baixo */
+  transition: 0.25s ease;
+  box-shadow: 0 4px 10px #ff4fa366;
+}
+
+.clear-button:hover {
+  background: #b00052;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 79, 163, 0.55);
+}
+
+
+
+/* =======================================
+   RESPONSIVIDADE — FAIXA 400px a 590px
+=========================================*/
+@media (min-width: 400px) and (max-width: 590px) {
+  .chat-container {
+    max-width: 95%;
+    margin: 10px auto;
+  }
+
+  .chat-area {
+    height: 320px;
+    padding: 15px;
+  }
+
+  .chat-header {
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  .msg-bubble {
+    max-width: 85%;
+  }
+
+  .chat-send-button {
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+}
+
+
+/* =======================================
+   RESPONSIVIDADE — FAIXA 700px a 890px
+=========================================*/
+@media (min-width: 700px) and (max-width: 890px) {
+  .chat-container {
+    max-width: 85%;
+  }
+
+  .chat-area {
+    height: 360px;
+  }
+
+  .msg-bubble {
+    max-width: 80%;
+  }
+}
+
+
+/* =======================================
+   TELAS MUITO GRANDES
+=========================================*/
+@media (min-width: 1200px) {
+  .chat-container {
+    max-width: 850px;
+  }
+}
+
+
+
+/* ================================
+   ESTILOS GERAIS DO MARKDOWN
+================================ */
+.msg-bot markdown,  
+.msg-bot .react-markdown,
+.msg-bubble .react-markdown {
+  font-family: "Inter", sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* TITULOS */
+.msg-bubble h1,
+.msg-bubble h2,
+.msg-bubble h3 {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #b300b3; /* rosa roxo */
+}
+
+.msg-bubble h1 {
+  font-size: 22px;
+}
+
+.msg-bubble h2 {
+  font-size: 19px;
+}
+
+.msg-bubble h3 {
+  font-size: 17px;
+}
+
+/* PARÁGRAFOS */
+.msg-bubble p {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #444;
+}
+
+/* LISTAS */
+.msg-bubble ul {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.msg-bubble li {
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #444;
+}
+
+/* NEGRITO */
+.msg-bubble strong {
+  color: #bf00ff; /* destaque rosa roxo */
+  font-weight: bold;
+}
+
+/* LINKS */
+.msg-bubble a {
+  color: #d100d1;
+  text-decoration: underline;
+}
+
+.msg-bubble a:hover {
+  color: #ff4dff;
+}
+
+/* CITAÇÕES */
+.msg-bubble blockquote {
+  border-left: 4px solid #d633ff;
+  background: #fbe8ff;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+  color: #4a004a;
+}
+
+/* CÓDIGO INLINE */
+.msg-bubble code {
+  background: #ffe6ff;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #990099;
+}
+
+/* BLOCO DE CÓDIGO */
+.msg-bubble pre {
+  background: #f8d6ff;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.msg-bubble pre code {
+  background: none;
+  color: #660066;
+  font-size: 14px;
+}
