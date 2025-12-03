@@ -1,0 +1,215 @@
+/* Container geral */
+.cal-app {
+  max-width: 1100px;
+  margin: 24px auto;
+  font-family: "Inter", sans-serif;
+  color: #222;
+}
+
+/* header com botões */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.cal-header h3 {
+  color: #ff66b3;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cal-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #111;
+  border: 2px solid #111;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #ff66b3;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* caixa do calendario (fundo e borda rosa superior) */
+.cal-box {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  border-top: 4px solid #ff66b3;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* toolbar (navegar mês) */
+.cal-toolbar {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-bottom: 14px;
+}
+
+.nav-btn {
+  background: #fff;
+  border:1px solid #ddd;
+  border-radius: 12px;
+  width:36px;
+  height:36px;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.month-label {
+  font-size:13px;
+  color:#5b5b5b;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+/* grid */
+.calendar-grid { display:block; }
+
+.week-row.header-row {
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:8px;
+  padding: 6px 4px;
+  color:#777;
+  font-weight:600;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.week-day { text-align:center; padding:6px 0; }
+
+.weeks {
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+/* each cell wrapper for spacing */
+.cell-wrapper { min-height: 110px; }
+
+/* day cell */
+.day-cell {
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  height:100%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  position: relative;
+  border: 1px solid #f2f2f2;
+  display:flex;
+  flex-direction:column;
+}
+
+.empty-cell { background:transparent; }
+
+/* day number top-left */
+.day-number {
+  font-size:13px;
+  color:#777;
+  margin-bottom:6px;
+}
+
+/* highlight today */
+.day-cell.today { box-shadow: 0 8px 22px rgba(255,102,179,0.12); border:1px solid #ffd7ea; }
+
+/* events inside cell */
+.events-list { display:flex; flex-direction:column; gap:6px; }
+
+/* event pill base */
+.event-pill {
+  padding:6px 8px;
+  border-radius:10px;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  color:#fff;
+}
+
+/* types */
+.event-pill.type-Evento-Escolar { background:#ff66b3; }
+.event-pill.type-Feriado-Recesso { background:#40c57b; }
+.event-pill.type-Recurso-Pedagogico { background:#4aa0ff; }
+
+/* completed */
+.event-pill.completed { opacity:0.6; text-decoration:line-through; }
+
+/* event content and buttons */
+.event-title { flex:1; font-weight:600; font-size:12px; padding-right:6px; color:#fff; }
+.event-actions { display:flex; gap:6px; align-items:center; }
+
+.small-btn {
+  background:rgba(255,255,255,0.18);
+  border:none;
+  color:white;
+  padding:4px 6px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:12px;
+}
+.small-btn.danger { background: rgba(0,0,0,0.14); }
+
+/* add button inside day */
+.add-day-btn { position:absolute; bottom:6px; right:6px; }
+.add-day-btn button {
+  width:36px;height:36px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer;font-size:18px;
+}
+
+/* floating lateral add */
+.floating-add {
+  position:fixed;
+  right:20px;
+  bottom:80px;
+  width:56px;height:56px;border-radius:28px;background:#ff66b3;color:#fff;border:none;font-size:28px;
+  box-shadow: 0 8px 20px rgba(255,102,179,0.25);
+  cursor:pointer;
+}
+
+/* Modal */
+.modal-backdrop {
+  position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;z-index:999;
+}
+.modal {
+  width:360px;background:#fff;border-radius:10px;padding:16px;border:3px solid #ff66b3; box-shadow:0 16px 50px rgba(0,0,0,0.25);
+}
+.modal-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:8px; }
+.modal-header h4 { margin:0;color:#ff66b3;font-weight:700; }
+.modal-header .close { background:transparent;border:none;font-size:18px;cursor:pointer; }
+
+.modal-body { display:flex;flex-direction:column;gap:10px; }
+.modal-body label { font-size:13px;color:#333;font-weight:600; }
+.modal-body input[type="date"],
+.modal-body input[type="text"],
+.modal-body select {
+  padding:10px;border-radius:6px;border:1px solid #e6e6e6;font-size:14px;
+}
+
+/* create button */
+.modal-create {
+  margin-top:6px;background:#ff66b3;color:white;padding:12px;border-radius:22px;border:none;cursor:pointer;font-weight:700;
+}
+
+/* responsive */
+@media (max-width:900px){
+  .cal-app { padding: 10px; }
+  .weeks { gap:8px; }
+  .cell-wrapper { min-height: 100px; }
+}
