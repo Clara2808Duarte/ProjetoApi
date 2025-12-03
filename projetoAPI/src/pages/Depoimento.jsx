@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Depoimentos.css";
+import "./Depoimento.css";
 import Footer from "../components/Footer";
 
 export default function Testimonials() {
