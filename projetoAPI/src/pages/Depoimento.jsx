@@ -14,7 +14,7 @@ export default function Testimonials() {
     { name: "Sofia", grade: "5º ANO", text: "A professora entende a gente de verdade.", color: "#ffb3c8" },
   ];
 
-  const grades = ["Todos", "2º Ano", "3º Ano", "4º Ano", "5º Ano", "EX-ALUNO"];
+  const grades = ["Todos", "2º Ano", "3º Ano", "4º Ano", "5º Ano", "Ex-Aluno"];
 
   // Normaliza texto (remove acentos e deixa em lowercase) para comparação confiável
   const normalize = (str) =>
