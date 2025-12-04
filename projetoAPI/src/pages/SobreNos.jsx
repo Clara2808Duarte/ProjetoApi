@@ -3,7 +3,7 @@ import Giovanna from "../assets/Giovanna.jpeg";
 import Julia from "../assets/Julia.jpeg";
 import Kamilly from "../assets/Kamilly.jpeg";
 import Duarte from "../assets/Duarte.jpeg";
-// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 
 
 const integrantes = [
@@ -83,7 +83,7 @@ function Us() {
           educativo de forma simples, eficiente e inovadora.
         </p>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

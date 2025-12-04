@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import "./Calendario.css";
 
 // Importa o componente Footer para o rodapé
-// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 
 // Constante de locale para formatação (pt-BR)
 const LOCALE = "pt-BR";
@@ -350,7 +350,7 @@ export default function CalendarApp() {
         )}
       </div>
 
-      {/* <Footer /> componente Footer */}
+      <Footer /> {/* componente Footer */}
     </>
   );
 }
