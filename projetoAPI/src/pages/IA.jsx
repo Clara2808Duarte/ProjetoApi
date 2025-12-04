@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 // useEffect → executa efeitos colaterais (salvar localStorage, rolar tela)
 // useRef → mantém referência a elementos DOM (usado para rolagem)
 
-import Footer from "../components/Footer"; 
+// import Footer from "../components/Footer"; 
 // Componente Footer que exibe o rodapé da página
 
 import ReactMarkdown from "react-markdown"; 
@@ -337,7 +337,7 @@ const gerarPdf = (textoMarkdown) => {
         </div>
       </div>
 
-      <Footer /> {/* Rodapé */}
+      {/* <Footer /> Rodapé */}
     </>
   );
 }

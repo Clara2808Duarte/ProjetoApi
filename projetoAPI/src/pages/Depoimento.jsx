@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Depoimento.css";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import depo1 from "../assets/Video1.mp4";
 import depo2 from "../assets/Video2.mp4";
 import depo3 from "../assets/Video3.mp4";
@@ -133,7 +133,7 @@ export default function Testimonials() {
       </div>
 
       {/* Rodapé do site */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
