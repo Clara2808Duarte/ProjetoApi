@@ -34,7 +34,6 @@ const integrantes = [
 function Us() {
   return (
     <>
-    <Header />
     <div className="contnr">
       <h1 className="tit"> INTEGRANTES DO GRUPO </h1>
       <p className="subtit">
