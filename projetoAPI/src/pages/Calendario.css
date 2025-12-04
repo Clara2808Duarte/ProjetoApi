@@ -49,6 +49,7 @@
   background: white;
   border-radius: 8px;
   padding: 16px;
+  padding-bottom: 25px;
   border-top: 4px solid #ff66b3;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
@@ -98,7 +99,7 @@
 .weeks {
   display:grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
+  gap: 20px;
 }
 
 /* each cell wrapper for spacing */

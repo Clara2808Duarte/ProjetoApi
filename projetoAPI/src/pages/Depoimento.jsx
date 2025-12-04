@@ -133,6 +133,7 @@ export default function Testimonials() {
     : data.filter(item => normalize(item.grade).includes(normalize(filter)));
 
   return (
+    <>
     <div className="testimonials-container">
       <h2 className="section-title">O que dizem nossos alunos</h2>
 
@@ -175,8 +176,8 @@ export default function Testimonials() {
           </div>
         ))}
       </div>
-
+</div>
       <Footer />
-    </div>
+      </>    
   );
 }
