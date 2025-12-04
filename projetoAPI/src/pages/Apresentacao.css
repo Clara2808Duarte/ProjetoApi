@@ -1,17 +1,17 @@
 /* ====== CONTAINER DOS CARDS ====== */
 .cards-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;      
+  flex-wrap: wrap;          /* permite quebrar linha */
+  justify-content: center;  /* centralizar horizontalmente */
+  align-items: flex-start;  
   width: 100%;
   padding: 40px 0;
-  gap: 40px;
+  gap: 25px;                /* espaçamento entre os cards */
 }
 
 /* ====== INDIVIDUAL CARD ====== */
 .card-item {
-  width: 260px;
+  width: 260px;             /* mesmo tamanho da segunda foto */
   background: white;
   border-radius: 16px;
   padding: 35px 20px;
