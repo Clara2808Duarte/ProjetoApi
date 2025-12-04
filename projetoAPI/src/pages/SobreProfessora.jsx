@@ -1,6 +1,6 @@
 import "./SobreProfessora.css";
 import Footer from "../components/Footer";
-import Professora from "../assets/ProfessoraEunice.jpeg";
+import Professora from "../assets/FotoDocente.jpeg";
 
 
 export default function ProfileCard() {
