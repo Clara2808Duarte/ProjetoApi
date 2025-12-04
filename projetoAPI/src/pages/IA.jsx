@@ -15,7 +15,7 @@ import ReactMarkdown from "react-markdown";
 import jsPDF from "jspdf"; 
 // Biblioteca para gerar PDF diretamente no frontend
 
-import "../pages/ia.css"; 
+import "../pages/IA.css"; 
 // CSS da página de chat
 
 import { enviarParaGemini } from "../backend/server"; 
