@@ -1,5 +1,5 @@
 // Importa React e hooks useState/useEffect
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // Importa o CSS do componente de calendário
 import "./Calendario.css";
