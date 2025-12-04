@@ -27,18 +27,21 @@ export default function CardsSection() {
     },
   ];
 
-
   return (
     <div>
 <Header />
         {/* CARDS */}
+        <div className="card-row">
           {cardsData.map((card, index) => (
         <div key={index} className="card-item">
           <div className="card-icon">{card.icon}</div>
+          <div className="card-tt">
           <h3 className="card-title">{card.title}</h3>
           <p className="card-text">{card.text}</p>
+          </div>
             </div>
           ))}
+        </div>
 <Footer />
       </div>
   );

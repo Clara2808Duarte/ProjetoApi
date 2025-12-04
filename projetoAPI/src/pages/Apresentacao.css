@@ -1,37 +1,47 @@
-/* ====== CONTAINER DOS CARDS ====== */
 .cards-container {
+  width: 85vw; /* mesma largura do hero */
+  margin: 0 auto; /* CENTRALIZA */
   display: flex;
-  flex-wrap: wrap;          /* permite quebrar linha */
-  justify-content: center;  /* centralizar horizontalmente */
-  align-items: flex-start;  
-  width: 100%;
-  padding: 40px 0;
-  gap: 25px;                /* espaçamento entre os cards */
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+  gap: 40px;
+  padding: 50px 0;
+  flex-wrap: wrap;
 }
 
-/* ====== INDIVIDUAL CARD ====== */
 .card-item {
-  width: 260px;             /* mesmo tamanho da segunda foto */
+  display: flex;
+  width: 260px;
   background: white;
   border-radius: 16px;
-  padding: 35px 20px;
+  padding: 39px 50px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
   border-top: 4px solid #ff66b3;
   transition: transform 0.2s ease;
+}
+
+.card-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 75px 0;
 }
 
 .card-item:hover {
   transform: translateY(-5px);
 }
 
-/* ====== ÍCONE ====== */
 .card-icon {
-  width: 70px;
-  height: 70px;
+  width: 4vw;
+  height: 7vh;
   background: #ffd6e8;
   border-radius: 50%;
   margin: 0 auto 20px;
+  margin-top: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +49,6 @@
   color: #ff66b3;
 }
 
-/* ====== TÍTULO ====== */
 .card-title {
   font-size: 18px;
   font-weight: 600;
@@ -47,9 +56,13 @@
   color: #333;
 }
 
-/* ====== TEXTO ====== */
 .card-text {
   font-size: 15px;
   color: #555;
   line-height: 1.4;
+}
+
+.card-tt {
+  display: flex;
+  flex-direction: column;
 }
