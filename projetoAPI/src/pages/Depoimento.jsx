@@ -92,11 +92,11 @@ export default function Testimonials() {
         {/* Grid que lista os depoimentos filtrados */}
         <div className="cards-grid">
           {filtered.map((student, index) => ( // Mapeia cada depoimento filtrado
-            <div key={`${student.name}-${index}`} className="testimonial-card"> // Card do depoimento
+            <div key={`${student.name}-${index}`} className="testimonial-card"> 
               
               {/* Avatar colorido com a inicial do nome */}
-              <div className="avatar" style={{ background: student.color }}> // Cor do avatar
-                {student.name.charAt(0).toUpperCase()} // Inicial do nome
+              <div className="avatar" style={{ background: student.color }}> 
+                {student.name.charAt(0).toUpperCase()}
               </div>
 
               {/* Área de informações */}
@@ -111,13 +111,13 @@ export default function Testimonials() {
                 {/* Vídeo opcional */}
                 {student.video && (
                   <video className="testimonial-video" controls>
-                    <source src={student.video} type="video/mp4" /> // Fonte do vídeo
+                    <source src={student.video} type="video/mp4" /> 
                     Seu navegador não suporta vídeos.
                   </video>
                 )}
 
                 {/* Estrelas de avaliação */}
-                <div className="stars">★★★★★</div> // Cinco estrelas
+                <div className="stars">★★★★★</div> 
               </div>
             </div>
           ))}
