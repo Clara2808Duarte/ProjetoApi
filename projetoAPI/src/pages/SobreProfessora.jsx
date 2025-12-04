@@ -12,7 +12,6 @@ export default function ProfileCard() {
         </div>
 
         <div className="info">
-          <div className="bar"></div>
           <h3>Professora Eunice Alves</h3>
 
           <p className="descricao">
