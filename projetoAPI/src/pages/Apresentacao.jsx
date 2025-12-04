@@ -5,7 +5,7 @@ import React from "react";
 import "./Apresentacao.css";
 
 // Importa os componentes de layout
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 // Importa ícones da biblioteca react-icons
@@ -42,7 +42,7 @@ export default function CardsSection() {
   return (
     <div> {/* Container geral da página */}
 
-      <Header /> {/* Cabeçalho do site */}
+      {/* <Header /> Cabeçalho do site */}
 
       {/* Linha dos cards */}
       <div className="card-row">
