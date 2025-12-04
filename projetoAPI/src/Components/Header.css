@@ -62,6 +62,7 @@
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(255, 77, 184, 0.4);
   transition: 0.2s;
+  text-decoration: none;   /* REMOVE sublinhado */
 }
 
 .btn-ia:hover {
@@ -78,9 +79,11 @@
   cursor: pointer;
   font-weight: 500;
   transition: 0.2s;
+  text-decoration: none;   /* REMOVE sublinhado */
 }
 
 .btn-prof:hover {
   background: #ff4db8;
   color: white;
 }
+
