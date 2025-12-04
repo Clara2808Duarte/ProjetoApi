@@ -5,7 +5,7 @@ import Apresentacao from "./pages/Apresentacao";
 import Professora from "./pages/SobreProfessora";
 import Calendario from "./pages/Calendario";
 import Depoimentos from "./pages/Depoimento";
-import Colaboradores from "./pages/SobreNos";
+import Colaboradoras from "./pages/SobreNos";
 
 // IMPORTA O CHAT
 import IA from "./pages/IA";
@@ -19,7 +19,7 @@ export default function AppRoutes() {
         <Route path="/professora" element={<Professora />} />
         <Route path="/calendario" element={<Calendario />} />
         <Route path="/depoimentos" element={<Depoimentos />} />
-        <Route path="/asgatitas" element={<Colaboradores />} />
+        <Route path="/asgatitas" element={<Colaboradoras />} />
 
         {/* NOVA ROTA DO CHAT */}
         <Route path="/ia" element={<IA />} />

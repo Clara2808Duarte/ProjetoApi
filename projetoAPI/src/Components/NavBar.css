@@ -1,6 +1,6 @@
 /* NAVBAR GERAL */
 .navbar {
-  width: 90vw;
+  width: 92vw;
   height: 70px;
   padding: 0 40px;
   background: #fff;
@@ -66,6 +66,20 @@
   font-size: 14px;
 }
 
+.navbar-links li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-links li a:visited {
+  text-decoration: none;
+}
+
+.navbar-links li a:hover {
+  text-decoration: none;
+}
+
+
 /* LINK ATIVO (Início) */
 .navbar-links .active {
   background: #ffe2ef;
@@ -91,6 +105,8 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
+    text-decoration: none;
+
 }
 
 .ia-btn i {

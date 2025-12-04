@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import ReactMarkdown from "react-markdown";
 import jsPDF from "jspdf";
 import "../pages/ia.css";
+import { enviarParaGemini } from "../backend/server";
+
 
 export default function IA() {
   const [mensagem, setMensagem] = useState("");
@@ -161,42 +163,35 @@ const gerarPdf = (textoMarkdown) => {
   // ============================================
   // ENVIAR MENSAGEM AO SERVIDOR
   // ============================================
-  const enviarMensagem = async () => {
-    if (!mensagem.trim()) return;
+ const enviarMensagem = async () => {
+  if (!mensagem.trim()) return;
 
-    const novaConversa = [...conversa, { remetente: "user", texto: mensagem }];
+  const novaConversa = [...conversa, { remetente: "user", texto: mensagem }];
+  setMensagem("");
+  setConversa(novaConversa);
+  setCarregando(true);
 
-    setMensagem("");
-    setConversa(novaConversa);
+  try {
+    const respostaIA = await enviarParaGemini(mensagem);
 
-    try {
-      setCarregando(true);
+  setConversa((prev) => [
+  ...prev,
+  { remetente: "bot", texto: respostaIA || "Sem resposta da IA.", inicial: false },
+]);
 
-      const resp = await fetch("http://localhost:5000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: mensagem }),
-      });
+  } catch (error) {
+    setConversa((prev) => [
+      ...prev,
+      {
+        remetente: "bot",
+        texto: "Erro ao conectar à IA.",
+        inicial: false,
+      },
+    ]);
+  }
 
-      const data = await resp.json();
-
-      setConversa((prev) => [
-        ...prev,
-        { remetente: "bot", texto: data.reply, inicial: false },
-      ]);
-    } catch (error) {
-      setConversa((prev) => [
-        ...prev,
-        {
-          remetente: "bot",
-          texto: "Erro ao conectar ao servidor.",
-          inicial: false,
-        },
-      ]);
-    }
-
-    setCarregando(false);
-  };
+  setCarregando(false);
+};
 
   // ============================================
   // 🧹 LIMPAR CHAT
@@ -270,7 +265,7 @@ const gerarPdf = (textoMarkdown) => {
         <div className="chat-input-area">
           <input
             className="chat-input"
-            placeholder="Ex: Por favor, me ajude a criar um plano de aula para o 4º ano sobre o ciclo da água."
+            placeholder="Ex: Crie um plano de aula para o 4º ano sobre o ciclo da água."
             value={mensagem}
             onChange={(e) => setMensagem(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && enviarMensagem()}
