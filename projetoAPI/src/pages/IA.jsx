@@ -95,9 +95,9 @@ export default function IA() {
   // MOSTRAR BOTÃO DE ROLAR PARA BAIXO SE NECESSÁRIO
   // ===============================
   const handleScroll = () => {
-    const { scrollTop, scrollHeight, clientHeight } = areaConversaRef.current;
+    const { scrollTop, scrollHeight, clientHeight } = areaConversaRef.current; // Obtém valores de rolagem
     // Calcula quanto falta rolar
-    setMostrarBotao(scrollHeight - scrollTop - clientHeight > 100);
+    setMostrarBotao(scrollHeight - scrollTop - clientHeight > 100); // Mostra botão se faltar mais de 100px para o final
     // Mostra botão se faltar mais de 100px para o final
   };
 
@@ -108,9 +108,9 @@ export default function IA() {
 const gerarPdf = (textoMarkdown) => {
 
   // Cria o documento PDF no formato A4 usando pontos (pt) como unidade
-  const doc = new jsPDF({
-    unit: "pt",
-    format: "a4"
+  const doc = new jsPDF({ 
+    unit: "pt", // Unidade em pontos
+    format: "a4" // Formato A4
   });
 
   // Margem esquerda
