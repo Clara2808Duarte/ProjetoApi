@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 
 export default function ProfileCard() {
   return (
+    <>
     <div className="profile-container">
       <div className="profile-content">
         <div className="avatar">
@@ -36,7 +37,9 @@ export default function ProfileCard() {
         <button>Aulas Lúdicas</button>
         <button>Inclusão Escolar</button>
       </div>
+       </div>
+
        <Footer />
-    </div>
+    </>
   );
 }
