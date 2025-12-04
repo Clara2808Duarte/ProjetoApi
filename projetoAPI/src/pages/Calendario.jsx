@@ -183,7 +183,7 @@ export default function CalendarApp() {
     const daysBefore = firstDay;
     let html = '<table class="calendar"><thead><tr>';
     const weekDays = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
-    for (let wd of weekDays) html += <th>${wd}</th>;
+    for (let wd of weekDays) html += `<th>${wd}</th>`;
     html += '</tr></thead><tbody><tr>';
     // blanks
     for (let i=0;i<daysBefore;i++) html += '<td></td>';
@@ -191,13 +191,13 @@ export default function CalendarApp() {
     for (let d=1; d<= last; d++){
       const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), d));
       const evs = events[dateIso] || [];
-      let content = <div>${d}</div>;
+      let content = `<div>${d}</div>`;
       for (const e of evs) {
         // choose class by type
         let cls = e.type.replace(/\s/g,"\\ ");
-        content += <div class="event ${cls}">${e.title}</div>;
+        content += `<div class="event ${cls}">${e.title}</div>`;
       }
-      html += <td>${content}</td>;
+      html += `<td>${content}</td>`;
       cell++;
       if (cell %7 ===0) html += '</tr><tr>';
     }

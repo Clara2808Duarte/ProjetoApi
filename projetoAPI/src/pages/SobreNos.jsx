@@ -4,6 +4,8 @@ import Julia from "../assets/Julia.jpeg";
 import Kamilly from "../assets/Kamilly.jpeg";
 import Duarte from "../assets/Duarte.jpeg";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Nav from "../components/NavBar";
 
 
 const integrantes = [
@@ -33,7 +35,6 @@ function Us() {
   return (
     <>
     <Header />
-    <Nav />
     <div className="contnr">
       <h1 className="tit"> INTEGRANTES DO GRUPO </h1>
       <p className="subtit">

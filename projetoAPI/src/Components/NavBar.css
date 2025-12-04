@@ -2,6 +2,7 @@
 .navbar {
   width: 90vw;
   height: 70px;
+  margin: 0 auto;                    
   padding: 0 40px;
   background: #fff;
   display: flex;
@@ -15,37 +16,37 @@
 .navbar-logo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .logo-box {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   background: #ff69b4;
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  font-size: 14px;
 }
 
-  .logo-text {
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
-  }
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+}
 
 .logo-text span {
-  color: #ff67b6;
-  font-weight: 600;
+  color: #ff3fae;   
 }
 
-/* LINKS */
+/* LINKS DA NAVBAR */
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 35px;
   list-style: none;
 }
 
@@ -53,34 +54,46 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
-  color: #444;
+  font-size: 15px;
+  color: #5a445c;                   
   padding: 8px 14px;
   border-radius: 30px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.25s ease;
 }
 
+.navbar-links li a {
+  text-decoration: none;            /* 🚫 Remove sublinhado */
+  color: #5a445c;                   
+  font-weight: 500;
+}
+
+/* ÍCONES FOFOS */
 .navbar-links li i {
   color: #ff69b4;
-  font-size: 14px;
+  font-size: 16px;
 }
 
-/* LINK ATIVO (Início) */
+/* LINK ATIVO */
 .navbar-links .active {
-  background: #ffe2ef;
+  background: #ffe3f2;              /* rosa clarinho */
   font-weight: 600;
-  color: #ff69b4;
+  color: #ff4ab8;
 }
 
-/* HOVER */
+.navbar-links .active a {
+  color: #ff4ab8;
+}
+
+/* HOVER SUAVE */
 .navbar-links li:hover {
-  background: #f7f7f7;
+  background: #f9f3fa;              /* tom pastel */
+  transform: translateY(-2px);      /* 🍬 sobe levemente */
 }
 
-/* Botão rosa à direita */
+/* BOTÃO ROSA IA */
 .ia-btn {
-  padding: 8px 20px;
+  padding: 10px 22px;
   background: #ff4ab8;
   color: #fff;
   font-weight: 600;
@@ -91,6 +104,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
+  transition: 0.2s;
 }
 
 .ia-btn i {
@@ -98,5 +112,5 @@
 }
 
 .ia-btn:hover {
-  opacity: 0.9;
+  background: #ff2fa3;
 }
