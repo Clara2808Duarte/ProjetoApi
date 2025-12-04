@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "./NavBar.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 export default function NavBar() {
   return (
