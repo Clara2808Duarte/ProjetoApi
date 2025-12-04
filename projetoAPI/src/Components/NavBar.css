@@ -63,7 +63,7 @@
 }
 
 .navbar-links li a {
-  text-decoration: none;            /* 🚫 Remove sublinhado */
+  text-decoration: none;           
   color: #5a445c;                   
   font-weight: 500;
 }
@@ -76,7 +76,7 @@
 
 /* LINK ATIVO */
 .navbar-links .active {
-  background: #ffe3f2;              /* rosa clarinho */
+  background: #ffe3f2;              
   font-weight: 600;
   color: #ff4ab8;
 }
@@ -87,8 +87,8 @@
 
 /* HOVER SUAVE */
 .navbar-links li:hover {
-  background: #f9f3fa;              /* tom pastel */
-  transform: translateY(-2px);      /* 🍬 sobe levemente */
+  background: #f9f3fa;              
+  transform: translateY(-2px);      
 }
 
 /* BOTÃO ROSA IA */
@@ -98,6 +98,7 @@
   color: #fff;
   font-weight: 600;
   border: none;
+  text-decoration: none;   
   border-radius: 25px;
   cursor: pointer;
   display: flex;
