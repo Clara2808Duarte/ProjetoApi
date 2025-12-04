@@ -1,5 +1,6 @@
 import "./SobreProfessora.css";
 import Footer from "../components/Footer";
+import Professora from "../assets/ProfessoraEunice.jpeg";
 
 
 export default function ProfileCard() {
@@ -7,10 +8,7 @@ export default function ProfileCard() {
     <div className="profile-container">
       <div className="profile-content">
         <div className="avatar">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-            alt="Avatar"
-          />
+        <img src={Professora} alt="Foto da Professora Eunice" />
         </div>
 
         <div className="info">
