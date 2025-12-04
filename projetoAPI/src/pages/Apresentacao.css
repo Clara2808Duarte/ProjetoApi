@@ -1,68 +1,77 @@
+/* Container principal dos cards (Atenção: no JSX você usa card-row, mas deixei aqui caso use depois) */
 .cards-container {
-  width: 85vw; /* mesma largura do hero */
-  margin: 0 auto; /* CENTRALIZA */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: row;
-  gap: 40px;
-  padding: 50px 0;
-  flex-wrap: wrap;
+  width: 85vw;                /* Largura proporcional à tela */
+  margin: 0 auto;             /* Centraliza o container */
+  display: flex;              /* Layout flexível */
+  justify-content: center;    /* Centraliza horizontalmente */
+  align-items: flex-start;    /* Alinha acima */
+  flex-direction: row;        /* Itens lado a lado */
+  gap: 40px;                  /* Espaço entre os itens */
+  padding: 50px 0;            /* Espaçamento vertical */
+  flex-wrap: wrap;            /* Permite quebrar linha */
 }
 
+/* CARD INDIVIDUAL */
 .card-item {
-  display: flex;
-  width: 260px;
-  background: white;
-  border-radius: 16px;
-  padding: 39px 50px;
-  text-align: center;
+  display: flex;                     /* Ícone + texto */
+  width: 260px;                      /* Largura fixa */
+  background: white;                 /* Fundo branco */
+  border-radius: 16px;               /* Bordas arredondadas */
+  padding: 39px 50px;                /* Espaço interno */
+  text-align: center;                /* Alinha texto */
 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-  border-top: 4px solid #ff66b3;
-  transition: transform 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05); /* Sombra suave */
+  border-top: 4px solid #ff66b3;           /* Borda rosa em cima */
+  transition: transform 0.2s ease;         /* Animação suave no hover */
 }
 
+/* CONTAINER QUE AGRUPA TODOS OS CARDS */
 .card-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  padding: 80px 0;
+  display: flex;                  /* Torna a linha flexível */
+  flex-direction: row;            /* Cards lado a lado */
+  align-items: center;            /* Centraliza verticalmente */
+  justify-content: space-around;  /* Espaçamento uniforme */
+  padding: 80px 0;                /* Distância do topo e base */
 }
 
+/* Efeito hover ao passar o mouse no card */
 .card-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px); /* Levanta o card um pouquinho */
 }
 
+/* ÍCONE DO CARD */
 .card-icon {
-  width: 4vw;
-  height: 7vh;
-  background: #ffd6e8;
-  border-radius: 50%;
-  margin: 0 auto 20px;
-  margin-top: 2px;
-  display: flex;
-  justify-content: center;
+  width: 4vw;                      /* Largura responsiva */
+  height: 7vh;                     /* Altura responsiva */
+  background: #ffd6e8;             /* Fundo rosa claro */
+  border-radius: 50%;              /* Deixa redondo */
+  margin: 0 auto 20px;             /* Centraliza e dá espaço abaixo */
+  margin-top: 2px;                 /* Ajuste fino */
+  display: flex;                   /* Centraliza o ícone */
+  justify-content: center;        
   align-items: center;
-  font-size: 28px;
-  color: #ff66b3;
+  font-size: 28px;                 /* Tamanho do ícone */
+  color: #ff66b3;                  /* Cor rosa */
 }
 
+/* TÍTULO DO CARD */
 .card-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 18px;        /* Tamanho */
+  font-weight: 600;       /* Negrito */
+  margin-bottom: 10px;    /* Espaço abaixo */
+  color: #333;            /* Cor escura */
 }
 
+/* TEXTO DO CARD */
 .card-text {
-  font-size: 15px;
-  color: #555;
-  line-height: 1.4;
+  font-size: 15px;        /* Tamanho fonte */
+  color: #555;            /* Cor cinza */
+  line-height: 1.4;       /* Espaçamento entre linhas */
 }
 
+/* Container da parte textual */
 .card-tt {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Um embaixo do outro */
 }
+
