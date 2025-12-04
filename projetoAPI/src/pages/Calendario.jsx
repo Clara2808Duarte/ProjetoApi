@@ -1,135 +1,163 @@
+// Importa React e hooks useState/useEffect
 import React, { useState, useEffect } from "react";
+
+// Importa o CSS do componente de calendário
 import "./Calendario.css";
+
+// Importa o componente Footer para o rodapé
 import Footer from "../components/Footer";
 
-// Helpers
+// Constante de locale para formatação (pt-BR)
 const LOCALE = "pt-BR";
+
+// Chave usada no localStorage para guardar eventos
 const STORAGE_KEY = "gc_calendar_events";
 
+// Formata um objeto Date para string ISO YYYY-MM-DD
 function formatDateISO(date) {
-  const d = new Date(date);
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
+  const d = new Date(date); // cria Date a partir do argumento
+  const yyyy = d.getFullYear(); // ano com 4 dígitos
+  const mm = String(d.getMonth() + 1).padStart(2, "0"); // mês com 2 dígitos
+  const dd = String(d.getDate()).padStart(2, "0"); // dia com 2 dígitos
+  return `${yyyy}-${mm}-${dd}`; // retorna string no formato ISO
 }
 
+// Retorna o primeiro dia do mês para a data informada
 function startOfMonth(date) {
-  return new Date(date.getFullYear(), date.getMonth(), 1);
+  return new Date(date.getFullYear(), date.getMonth(), 1); // 1º dia do mês
 }
 
+// Retorna o último dia do mês para a data informada
 function endOfMonth(date) {
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0); // último dia do mês
 }
 
+// Retorna o nome do mês + ano em maiúsculas (ex: JANEIRO 2025)
 function monthName(date) {
   return date.toLocaleString(LOCALE, { month: "long", year: "numeric" }).toUpperCase();
 }
 
+// Gera um id único simples para eventos
 function uid() {
   return "_" + Math.random().toString(36).substr(2, 9);
 }
 
+// Componente principal do calendário
 export default function CalendarApp() {
+  // Estado: mês atual exibido (inicial = início do mês atual)
   const [current, setCurrent] = useState(()=> startOfMonth(new Date()));
+  // Estado: objetos de eventos, chave = date ISO, valor = array de eventos
   const [events, setEvents] = useState({});
+  // Estado: controla se o modal está aberto
   const [modalOpen, setModalOpen] = useState(false);
+  // Estado: formulário do modal (id/data/título/tipo)
   const [form, setForm] = useState({
     id: null,
     date: formatDateISO(new Date()),
     title: "",
     type: "Evento Escolar",
   });
+  // Estado: data selecionada para adicionar evento (iso)
   const [selectedDateForAdd, setSelectedDateForAdd] = useState(null);
 
-  // Load from localStorage
+  // useEffect: carrega eventos do localStorage ao montar o componente
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY); // lê do storage
     if (raw) {
       try {
-        const parsed = JSON.parse(raw);
-        setEvents(parsed);
-      } catch (e) { console.error(e); }
+        const parsed = JSON.parse(raw); // tenta parsear JSON
+        setEvents(parsed); // popula estado events
+      } catch (e) { console.error(e); } // log se JSON inválido
     }
-  }, []);
+  }, []); // roda só uma vez ao montar
 
-  // Save
+  // useEffect: salva eventos no localStorage sempre que events mudar
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
-  }, [events]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(events)); // grava JSON
+  }, [events]); // depende de events
 
-  // Navigation
+  // Função para ir ao mês anterior
   function prevMonth() {
     setCurrent(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   }
+  // Função para ir ao mês seguinte
   function nextMonth() {
     setCurrent(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   }
+  // Função para ir ao mês atual
   function gotoToday() {
     setCurrent(startOfMonth(new Date()));
   }
 
-  // Calendar grid
-  const firstDay = new Date(current.getFullYear(), current.getMonth(), 1).getDay(); // 0..6 (Sun..Sat)
+  // Calcula primeiro dia da semana do mês atual (0..6)
+  const firstDay = new Date(current.getFullYear(), current.getMonth(), 1).getDay();
+  // Último dia do mês (número)
   const last = endOfMonth(current).getDate();
-  // in JS week starts sunday; we'll keep same layout as image (Dom..Sab)
-
+  // Array de células em branco antes do dia 1
   const blanks = [];
   for (let i = 0; i < firstDay; i++) blanks.push(i);
-
+  // Array dos dias do mês [1..last]
   const days = [];
   for (let d = 1; d <= last; d++) days.push(d);
 
+  // Abre o modal para adicionar evento em dateIso (ou hoje se null)
   function openAddModal(dateIso = null) {
-    const dt = dateIso || formatDateISO(new Date());
-    setForm({ id: null, date: dt, title: "", type: "Evento Escolar" });
-    setSelectedDateForAdd(dt);
-    setModalOpen(true);
+    const dt = dateIso || formatDateISO(new Date()); // data alvo
+    setForm({ id: null, date: dt, title: "", type: "Evento Escolar" }); // reseta form
+    setSelectedDateForAdd(dt); // guarda data selecionada
+    setModalOpen(true); // abre modal
   }
 
+  // Handle submit do form (criar/editar evento)
   function handleSubmit(e) {
-    e.preventDefault();
-    if (!form.title.trim()) return alert("Preencha o título do evento.");
-    const id = form.id || uid();
+    e.preventDefault(); // previne reload
+    if (!form.title.trim()) return alert("Preencha o título do evento."); // valida título
+    const id = form.id || uid(); // usa id existente ou gera novo
     const ev = {
       id,
       date: form.date,
       title: form.title,
       type: form.type,
       completed: false,
-    };
+    }; // monta objeto do evento
+
     setEvents(prev => {
-      const copy = { ...prev };
-      copy[ev.date] = copy[ev.date] ? [ev, ...copy[ev.date]] : [ev];
-      // if editing remove old id if date changed
+      const copy = { ...prev }; // copia imutável
+      copy[ev.date] = copy[ev.date] ? [ev, ...copy[ev.date]] : [ev]; // adiciona/insere no começo
+
+      // Se estiver editando (form.id existe), remove instâncias antigas
       if (form.id) {
-        // remove previous instance if editing moved date
         for (const d in copy) {
           if (d !== ev.date) {
+            // remove evento antigo de outras datas
             copy[d] = copy[d].filter(it => it.id !== id);
-            if (copy[d].length === 0) delete copy[d];
+            if (copy[d].length === 0) delete copy[d]; // limpa chave vazia
           } else {
-            // if editing same date, remove old then add new (dedupe)
+            // mesma data: remove duplicado antigo e insere o novo no começo
             copy[d] = copy[d].filter(it => it.id !== id);
             copy[d].unshift(ev);
           }
         }
       }
-      return copy;
+
+      return copy; // retorna novo estado
     });
-    setModalOpen(false);
+
+    setModalOpen(false); // fecha modal após salvar
   }
 
+  // Deleta evento por id e date (confirma antes)
   function deleteEvent(id, date) {
-    if (!window.confirm("Excluir este evento?")) return;
+    if (!window.confirm("Excluir este evento?")) return; // confirmação
     setEvents(prev => {
       const copy = { ...prev };
-      copy[date] = copy[date].filter(it => it.id !== id);
-      if (copy[date].length === 0) delete copy[date];
+      copy[date] = copy[date].filter(it => it.id !== id); // filtra evento
+      if (copy[date].length === 0) delete copy[date]; // remove chave vazia
       return copy;
     });
   }
 
+  // Alterna flag completed do evento
   function toggleComplete(id, date) {
     setEvents(prev => {
       const copy = { ...prev };
@@ -138,16 +166,19 @@ export default function CalendarApp() {
     });
   }
 
+  // Abre modal para editar evento (popula form)
   function editEvent(ev) {
     setForm({ id: ev.id, date: ev.date, title: ev.title, type: ev.type });
     setModalOpen(true);
   }
 
-  // Export current month to printable window then call print (user can save as PDF)
+  // Exporta o mês atual para uma janela imprimível (usuário salva como PDF)
   function exportMonthToPdf() {
-    const monthStart = new Date(current.getFullYear(), current.getMonth(), 1);
-    const monthLabel = monthName(current);
-    const tableRows = buildMonthHtml();
+    const monthStart = new Date(current.getFullYear(), current.getMonth(), 1); // início do mês (não usado diretamente)
+    const monthLabel = monthName(current); // rótulo do mês
+    const tableRows = buildMonthHtml(); // HTML da tabela do mês
+
+    // HTML completo para abrir em nova janela
     const html = `
       <html>
         <head>
@@ -171,148 +202,155 @@ export default function CalendarApp() {
         </body>
       </html>
     `;
-    const w = window.open("", "_blank");
-    w.document.write(html);
-    w.document.close();
-    // give time to render then print
+
+    const w = window.open("", "_blank"); // abre nova janela
+    w.document.write(html); // escreve HTML
+    w.document.close(); // finaliza escrita
+
+    // Dá um tempo para render e então chama print
     setTimeout(() => { w.print(); }, 500);
   }
 
+  // Constrói o HTML da tabela do mês (usado na exportação)
   function buildMonthHtml(){
-    // build simple table html representing current month with events
-    const daysBefore = firstDay;
-    let html = '<table class="calendar"><thead><tr>';
-    const weekDays = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
-    for (let wd of weekDays) html += `<th>${wd}</th>`;
+    const daysBefore = firstDay; // quantas células vazias antes do dia 1
+    let html = '<table class="calendar"><thead><tr>'; // inicia tabela
+    const weekDays = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"]; // cabeçalho
+
+    for (let wd of weekDays) html += `<th>${wd}</th>`; // adiciona colunas de dias
     html += '</tr></thead><tbody><tr>';
-    // blanks
+
+    // adiciona células vazias iniciais
     for (let i=0;i<daysBefore;i++) html += '<td></td>';
     let cell = daysBefore;
+
+    // para cada dia do mês
     for (let d=1; d<= last; d++){
-      const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), d));
-      const evs = events[dateIso] || [];
-      let content = `<div>${d}</div>`;
+      const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), d)); // data ISO
+      const evs = events[dateIso] || []; // eventos desse dia ou array vazio
+      let content = `<div>${d}</div>`; // número do dia
+
       for (const e of evs) {
-        // choose class by type
-        let cls = e.type.replace(/\s/g,"\\ ");
-        content += `<div class="event ${cls}">${e.title}</div>`;
+        let cls = e.type.replace(/\s/g,"\\ "); // classe CSS baseada no tipo (escapa espaços)
+        content += `<div class="event ${cls}">${e.title}</div>`; // adiciona evento
       }
-      html += `<td>${content}</td>`;
+
+      html += `<td>${content}</td>`; // adiciona célula com conteúdo
       cell++;
-      if (cell %7 ===0) html += '</tr><tr>';
+      if (cell %7 ===0) html += '</tr><tr>'; // quebra de linha da tabela a cada 7 células
     }
-    // fill remaining cells
+    // preenche células vazias no final da tabela para completar a semana
     while (cell %7 !==0) { html += '<td></td>'; cell++; }
-    html += '</tr></tbody></table>';
-    return html;
+    html += '</tr></tbody></table>'; // fecha tabela
+    return html; // retorna string HTML
   }
 
-  // Render helpers
+  // Render helper: cria o conteúdo visual de uma célula do calendário
   function renderCell(day) {
-    if (!day) return <div className="empty-cell" />;
-    const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), day));
-    const evs = events[dateIso] || [];
-    const isToday = formatDateISO(new Date()) === dateIso;
+    if (!day) return <div className="empty-cell" />; // se null, retorna célula vazia
+    const dateIso = formatDateISO(new Date(current.getFullYear(), current.getMonth(), day)); // data ISO da célula
+    const evs = events[dateIso] || []; // eventos do dia
+    const isToday = formatDateISO(new Date()) === dateIso; // verifica se é hoje
+
     return (
-      <div className={`day-cell ${isToday ? "today" : ""}`}>
-        <div className="day-number">{day}</div>
+      <div className={`day-cell ${isToday ? "today" : ""}`}> {/* wrapper da célula */}
+        <div className="day-number">{day}</div> {/* mostra número do dia */}
 
         <div className="events-list">
-          {evs.map(ev => (
+          {evs.map(ev => ( // mapeia eventos para pílulas
             <div key={ev.id} className={`event-pill type-${ev.type.replace(/\s/g,"-") } ${ev.completed ? "completed":""}`}>
-              <div className="event-title">{ev.title}</div>
+              <div className="event-title">{ev.title}</div> {/* título do evento */}
               <div className="event-actions">
-                <button title="Marcar concluído" onClick={() => toggleComplete(ev.id, dateIso)} className="small-btn">✓</button>
-                <button title="Editar" onClick={() => editEvent(ev)} className="small-btn">✎</button>
-                <button title="Excluir" onClick={() => deleteEvent(ev.id, dateIso)} className="small-btn danger">🗑</button>
+                <button title="Marcar concluído" onClick={() => toggleComplete(ev.id, dateIso)} className="small-btn">✓</button> {/* toggle */}
+                <button title="Editar" onClick={() => editEvent(ev)} className="small-btn">✎</button> {/* editar */}
+                <button title="Excluir" onClick={() => deleteEvent(ev.id, dateIso)} className="small-btn danger">🗑</button> {/* excluir */}
               </div>
             </div>
           ))}
         </div>
 
         <div className="add-day-btn">
-          <button onClick={() => openAddModal(dateIso)} title="Adicionar evento nesta data">+</button>
+          <button onClick={() => openAddModal(dateIso)} title="Adicionar evento nesta data">+</button> {/* botão adicionar */}
         </div>
       </div>
     );
   }
 
+  // JSX retornado pelo componente (UI principal)
   return (
     <>
-    <div className="cal-app">
-      <div className="cal-header">
-        <h3>Painel de Planejamento Escolar</h3>
+      <div className="cal-app"> {/* container principal */}
+        <div className="cal-header"> {/* cabeçalho do painel */}
+          <h3>Painel de Planejamento Escolar</h3>
 
-        <div className="cal-controls">
-          <button className="btn-outline" onClick={exportMonthToPdf}>⬇︎ Baixar PDF</button>
-          <button className="btn-primary" onClick={() => openAddModal(null)}>Adicionar Evento</button>
-        </div>
-      </div>
-
-      <div className="cal-box">
-        <div className="cal-toolbar">
-          <button className="nav-btn" onClick={prevMonth}>‹</button>
-          <div className="month-label">{monthName(current)}</div>
-          <button className="nav-btn" onClick={nextMonth}>›</button>
-        </div>
-
-        <div className="calendar-grid">
-          {/* week header */}
-          <div className="week-row header-row">
-            {["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"].map((w,i)=> (
-              <div key={i} className="week-day">{w}</div>
-            ))}
-          </div>
-
-          {/* weeks */}
-          <div className="weeks">
-            {/* build cells array */}
-            {(() => {
-              const cells = [];
-              for (let i=0;i<blanks.length;i++) cells.push(null);
-              for (let d=1; d<= last; d++) cells.push(d);
-              // ensure multiple of 7
-              while (cells.length %7 !==0) cells.push(null);
-              return cells.map((c, idx) => <div key={idx} className="cell-wrapper">{renderCell(c)}</div>);
-            })()}
+          <div className="cal-controls"> {/* controles de ação */}
+            <button className="btn-outline" onClick={exportMonthToPdf}>⬇︎ Baixar PDF</button> {/* exportar */}
+            <button className="btn-primary" onClick={() => openAddModal(null)}>Adicionar Evento</button> {/* abrir modal */}
           </div>
         </div>
-      </div>
 
-      {/* floating side add button */}
-      <button className="floating-add" title="Adicionar evento" onClick={() => openAddModal(null)}>＋</button>
+        <div className="cal-box"> {/* caixa principal do calendário */}
+          <div className="cal-toolbar"> {/* barra com navegação de meses */}
+            <button className="nav-btn" onClick={prevMonth}>‹</button> {/* mês anterior */}
+            <div className="month-label">{monthName(current)}</div> {/* label do mês */}
+            <button className="nav-btn" onClick={nextMonth}>›</button> {/* próximo mês */}
+          </div>
 
-      {/* Modal */}
-      {modalOpen && (
-        <div className="modal-backdrop" onClick={() => setModalOpen(false)}>
-          <div className="modal" onClick={(e)=>e.stopPropagation()}>
-            <div className="modal-header">
-              <h4>Novo Evento</h4>
-              <button className="close" onClick={()=>setModalOpen(false)}>✕</button>
+          <div className="calendar-grid"> {/* grid do calendário */}
+            {/* cabeçalho da semana */}
+            <div className="week-row header-row">
+              {["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"].map((w,i)=> (
+                <div key={i} className="week-day">{w}</div> // nomes dos dias
+              ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="modal-body">
-              <label>Data</label>
-              <input type="date" value={form.date} onChange={(e)=> setForm({...form, date: e.target.value})} />
-
-              <label>Título/Descrição</label>
-              <input type="text" value={form.title} onChange={(e)=> setForm({...form, title: e.target.value})} placeholder="Título do evento" />
-
-              <label>Tipo</label>
-              <select value={form.type} onChange={(e)=> setForm({...form, type: e.target.value})}>
-                <option>Evento Escolar</option>
-                <option>Feriado Recesso</option>
-                <option>Recurso Pedagogico</option>
-              </select>
-
-              <button type="submit" className="modal-create">Criar Evento</button>
-            </form>
+            {/* linhas/semanas */}
+            <div className="weeks">
+              {(() => {
+                const cells = []; // array de células para renderizar
+                for (let i=0;i<blanks.length;i++) cells.push(null); // adiciona blanks
+                for (let d=1; d<= last; d++) cells.push(d); // adiciona dias
+                while (cells.length %7 !==0) cells.push(null); // completa última semana
+                return cells.map((c, idx) => <div key={idx} className="cell-wrapper">{renderCell(c)}</div>); // renderiza células
+              })()}
+            </div>
           </div>
         </div>
-      )}
-          </div>
 
-      <Footer />
-      </>
+        {/* botão flutuante para adicionar evento */}
+        <button className="floating-add" title="Adicionar evento" onClick={() => openAddModal(null)}>＋</button>
+
+        {/* Modal de criação/edição de evento */}
+        {modalOpen && (
+          <div className="modal-backdrop" onClick={() => setModalOpen(false)}> {/* backdrop fecha modal ao clicar */}
+            <div className="modal" onClick={(e)=>e.stopPropagation()}> {/* stopPropagation evita fechar ao clicar no modal */}
+              <div className="modal-header">
+                <h4>Novo Evento</h4>
+                <button className="close" onClick={()=>setModalOpen(false)}>✕</button> {/* fechar */}
+              </div>
+
+              <form onSubmit={handleSubmit} className="modal-body"> {/* formulário */}
+                <label>Data</label>
+                <input type="date" value={form.date} onChange={(e)=> setForm({...form, date: e.target.value})} /> {/* input data */}
+
+                <label>Título/Descrição</label>
+                <input type="text" value={form.title} onChange={(e)=> setForm({...form, title: e.target.value})} placeholder="Título do evento" /> {/* input título */}
+
+                <label>Tipo</label>
+                <select value={form.type} onChange={(e)=> setForm({...form, type: e.target.value})}> {/* seletor tipo */}
+                  <option>Evento Escolar</option>
+                  <option>Feriado Recesso</option>
+                  <option>Recurso Pedagogico</option>
+                </select>
+
+                <button type="submit" className="modal-create">Criar Evento</button> {/* submit */}
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <Footer /> {/* componente Footer */}
+    </>
   );
 }
