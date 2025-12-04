@@ -6,7 +6,7 @@ import "./Apresentacao.css";
 
 // Importa os componentes de layout
 // import Header from "../components/Header";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 
 // Importa ícones da biblioteca react-icons
 import { FaHeart, FaBrain, FaClock, FaBook } from "react-icons/fa";
@@ -64,7 +64,7 @@ export default function CardsSection() {
         ))}
       </div>
 
-      <Footer /> {/* Rodapé */}
+      {/* <Footer /> Rodapé */}
 
     </div>
   );
