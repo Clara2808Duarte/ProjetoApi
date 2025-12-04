@@ -6,6 +6,7 @@ import depo2 from "../assets/Video2.mp4";
 import depo3 from "../assets/Video3.mp4";
 import depo4 from "../assets/Video4.mp4";
 import depo5 from "../assets/Video5.mp4";
+import depo6 from "../assets/Video6.mp4";
 
 // Componente principal da página de depoimentos
 export default function Testimonials() {
@@ -43,12 +44,19 @@ export default function Testimonials() {
       color: "#ffe59e",
       video: depo4
     },
-    { 
-      name: "Rafael",
-      grade: "1º ANO",
-      text: "Gosto quando usamos a tecnologia na sala.",
-      color: "#d4c8ff",
-      video: depo5
+      { 
+        name: "Rafael",
+        grade: "1º ANO",
+        text: "Gosto quando usamos a tecnologia na sala.",
+        color: "#d4c8ff",
+        video: depo5
+    },
+     { 
+        name: "Noah",
+        grade: "1º ANO",
+        text: "Gosto muito da minha professora.",
+        color: "#d4c8ff",
+        video: depo6
     },
   ];
 
