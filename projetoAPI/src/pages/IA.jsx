@@ -104,70 +104,125 @@ export default function IA() {
   // ===============================
   // FUNÇÃO PARA GERAR PDF A PARTIR DO MARKDOWN
   // ===============================
-  const gerarPdf = (textoMarkdown) => {
-    const doc = new jsPDF({ unit: "pt", format: "a4" }); 
-    // Cria PDF tamanho A4
+// Função principal que gera o PDF
+const gerarPdf = (textoMarkdown) => {
 
-    const marginLeft = 40;
-    const marginTop = 50;
-    const maxWidth = 500;
-    let cursorY = marginTop; 
-    // Define posição inicial do texto
+  // Cria o documento PDF no formato A4 usando pontos (pt) como unidade
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "a4"
+  });
 
-    // Cores personalizadas para o PDF
-    const rosaForte = "#ff4fd8";
-    const rosaClaro = "#ff9fee";
-    const rosaBullet = "#ff4fd8";
-    const textoNormal = "#000000";
+  // Margem esquerda
+  const marginLeft = 40;
+  // Margem superior do PDF
+  const marginTop = 40;
+  // Largura máxima que o texto pode ocupar antes de quebrar linha
+  const maxWidth = 500;
+  // Controla a posição vertical atual dentro da página
+  let cursorY = marginTop;
 
-    // Função que adiciona uma linha de texto no PDF
-    const addLine = (text, size = 12, bold = false, color = textoNormal, extraSpace = 6) => {
-      doc.setFont("Helvetica", bold ? "bold" : "normal"); 
-      // Define fonte e estilo
-      doc.setFontSize(size); // Define tamanho
-      doc.setTextColor(color); // Define cor
+  // -------- CORES DO PDF --------
 
-      const wrapped = doc.splitTextToSize(text, maxWidth); 
-      // Quebra a linha se for maior que maxWidth
+  const rosaForte = "#d92fb0";  // Usado para títulos principais
+  const rosaClaro = "#ff7be3";  // Usado para subtítulos
+  const textoNormal = "#000";   // Cor do texto normal (parágrafos)
 
-      // Quebra de página automática
-      if (cursorY + wrapped.length * (size + 2) > 800) {
-        doc.addPage();
-        cursorY = marginTop;
-      }
+  // -------- TAMANHOS DE FONTE --------
+  // Estes valores foram ajustados para ficar proporcional ao tamanho da página A4
 
-      doc.text(wrapped, marginLeft, cursorY); 
-      cursorY += wrapped.length * (size + 2) + extraSpace; 
-      // Atualiza posição vertical
-    };
+  const FONT_TITLE = 13;        // Título nível 1
+  const FONT_SUBTITLE = 11;     // Título nível 2
+  const FONT_SUBSUB = 10;       // Título nível 3
+  const FONT_PARAGRAPH = 8;     // Parágrafo
+  const FONT_BULLET = 8;        // Lista
+  const FONT_BOLD = 8;          // Negrito
 
-    const linhas = textoMarkdown.split("\n"); 
-    // Divide Markdown por linhas
+  // Função que desenha uma linha ou parágrafo dentro do PDF
+  const addLine = (text, size = FONT_PARAGRAPH, bold = false, color = textoNormal, extraSpace = 2) => {
 
-    linhas.forEach((linha) => {
-      linha = linha.trim(); // Remove espaços extras
+    // Define a fonte: Helvetica normal ou Helvetica bold
+    doc.setFont("Helvetica", bold ? "bold" : "normal");
 
-      if (linha.startsWith("1. ")) {
-        addLine(linha.replace("1. ", ""), 22, true, rosaForte, 12); // Título
-      } else if (linha.startsWith("2. ")) {
-        addLine(linha.replace("2.", ""), 18, true, rosaClaro, 10); // Subtítulo
-      } else if (linha.startsWith("3.")) {
-        addLine(linha.replace("3. ", ""), 16, true, rosaClaro, 8); // Sub-subtítulo
-      } else if (linha.startsWith("- ")) {
-        addLine("• " + linha.replace("- ", ""), 13, false, rosaBullet, 4); // Bullet
-      } else if (/\*\*(.*?)\*\*/.test(linha)) {
-        const clean = linha.replace(/\*\*(.*?)\*\*/g, "$1");
-        addLine(clean, 13, true, rosaForte); // Negrito Markdown
-      } else if (linha.length > 0) {
-        addLine(linha, 13, false, textoNormal, 6); // Parágrafo normal
-      } else {
-        cursorY += 10; // Linha vazia
-      }
-    });
+    // Define o tamanho da fonte
+    doc.setFontSize(size);
 
-    doc.save("Resposta.pdf"); 
-    // Baixa o PDF gerado
+    // Define a cor do texto
+    doc.setTextColor(color);
+
+    // Quebra o texto automaticamente para cabe no maxWidth
+    const wrapped = doc.splitTextToSize(text, maxWidth);
+
+    // Se o texto vai ultrapassar o limite da página (posição 780)
+    if (cursorY + wrapped.length * (size + 2) > 780) {
+      // Cria uma nova página
+      doc.addPage();
+      // Reseta a altura para o topo da nova página
+      cursorY = marginTop;
+    }
+
+    // Escreve o texto no PDF na posição atual
+    doc.text(wrapped, marginLeft, cursorY);
+
+    // Move o cursor vertical para a próxima linha/parágrafo
+    cursorY += wrapped.length * (size + 2) + extraSpace;
   };
+
+  // Divide o markdown em linhas
+  const linhas = textoMarkdown.split("\n");
+
+  // Processa cada linha separadamente
+  linhas.forEach((linha) => {
+
+    // Remove espaços desnecessários nas pontas
+    linha = linha.trim();
+
+    // ---------- TITULO NIVEL 1 (1. ) ----------
+    if (linha.startsWith("1. ")) {
+      addLine(linha.replace("1. ", ""), FONT_TITLE, true, rosaForte, 8);
+      return; // vai para a próxima linha
+    }
+
+    // ---------- TITULO NIVEL 2 (2. ) ----------
+    if (linha.startsWith("2. ")) {
+      addLine(linha.replace("2. ", ""), FONT_SUBTITLE, true, rosaClaro, 6);
+      return;
+    }
+
+    // ---------- TITULO NIVEL 3 (3. ) ----------
+    if (linha.startsWith("3. ")) {
+      addLine(linha.replace("3. ", ""), FONT_SUBSUB, true, rosaClaro, 4);
+      return;
+    }
+
+    // ---------- LISTA (- ) ----------
+    if (linha.startsWith("- ")) {
+      addLine("• " + linha.replace("- ", ""), FONT_BULLET, false, textoNormal,  2);
+      return;
+    }
+
+    // ---------- NEGRITO (**texto**) ----------
+    if (/\*\*(.*?)\*\*/.test(linha)) {
+      // Remove os asteriscos e mantém só o texto
+      const clean = linha.replace(/\*\*(.*?)\*\*/g, "$1");
+      addLine(clean, FONT_BOLD, true, textoNormal, 2);
+      return;
+    }
+
+    // ---------- PARÁGRAFO NORMAL ----------
+    if (linha.length > 0) {
+      addLine(linha, FONT_PARAGRAPH, false, textoNormal, 2);
+      return;
+    }
+
+    // ---------- LINHA VAZIA ----------
+    cursorY += 6;
+  });
+
+  // Salva o arquivo com o nome informado
+  doc.save("Resposta.pdf");
+};
+
 
   // ===============================
   // FUNÇÃO PARA ENVIAR MENSAGEM AO SERVIDOR (IA)
@@ -256,7 +311,7 @@ export default function IA() {
           ))}
 
           {/* Indicador "digitando" */}
-          {carregando && <div className="msg-typing">Digitando...</div>}
+          {carregando && <div className="msg-typing">Gerando Resposta...</div>}
         </div>
 
         {/* Botão rolar para o final */}
