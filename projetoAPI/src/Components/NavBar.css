@@ -1,6 +1,6 @@
 /* NAVBAR GERAL */
 .navbar {
-  width: 90vw;
+  width: 100vw;
   height: 70px;
   margin: 0 auto;                    
   padding: 0 40px;
@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.08); */
   font-family: 'Inter', sans-serif;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .navbar-links li a {
-  text-decoration: none;           
+  text-decoration: none;            /* 🚫 Remove sublinhado */
   color: #5a445c;                   
   font-weight: 500;
 }
@@ -76,7 +76,7 @@
 
 /* LINK ATIVO */
 .navbar-links .active {
-  background: #ffe3f2;              
+  background: #ffe3f2;              /* rosa clarinho */
   font-weight: 600;
   color: #ff4ab8;
 }
@@ -87,8 +87,8 @@
 
 /* HOVER SUAVE */
 .navbar-links li:hover {
-  background: #f9f3fa;              
-  transform: translateY(-2px);      
+  background: #f9f3fa;              /* tom pastel */
+  transform: translateY(-2px);      /* 🍬 sobe levemente */
 }
 
 /* BOTÃO ROSA IA */
@@ -98,7 +98,6 @@
   color: #fff;
   font-weight: 600;
   border: none;
-  text-decoration: none;   
   border-radius: 25px;
   cursor: pointer;
   display: flex;
@@ -106,6 +105,7 @@
   gap: 8px;
   font-size: 14px;
   transition: 0.2s;
+  text-decoration: none; /* remove sublinhado */
 }
 
 .ia-btn i {

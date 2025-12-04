@@ -238,6 +238,7 @@ export default function CalendarApp() {
   }
 
   return (
+    <>
     <div className="cal-app">
       <div className="cal-header">
         <h3>Painel de Planejamento Escolar</h3>
@@ -309,7 +310,9 @@ export default function CalendarApp() {
           </div>
         </div>
       )}
+          </div>
+
       <Footer />
-    </div>
+      </>
   );
 }

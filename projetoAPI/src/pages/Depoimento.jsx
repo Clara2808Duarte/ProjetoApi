@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./Depoimento.css";
 import Footer from "../components/Footer";
-
-// Importa os vídeos que estão dentro da pasta assets
 import depo1 from "../assets/Video1.mp4";
 import depo2 from "../assets/Video2.mp4";
 import depo3 from "../assets/Video3.mp4";
@@ -59,16 +57,16 @@ export default function Testimonials() {
 
   // Função para normalizar textos (remove acentos e deixa minúsculo)
   const normalize = (str) =>
-    String(str)
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+    String(str) //  Garante que é uma string
+      .normalize("NFD") // Normaliza os caracteres
+      .replace(/[\u0300-\u036f]/g, "") // Remove acentos
+      .toLowerCase(); // Converte para minúsculas
 
   // Aplica o filtro — se for “Todos”, retorna tudo
   const filtered =
-    filter === "Todos"
-      ? data
-      : data.filter(item => normalize(item.grade).includes(normalize(filter)));
+    filter === "Todos" // Verifica se o filtro é “Todos”
+      ? data // Retorna todos os depoimentos
+      : data.filter(item => normalize(item.grade).includes(normalize(filter))); // Filtra por série
 
   // Retorno da interface da página
   return (
@@ -79,7 +77,7 @@ export default function Testimonials() {
 
         {/* Botões do filtro */}
         <div className="filter-buttons">
-          {grades.map(g => (
+          {grades.map(g => (  // Mapeia cada categoria de filtro
             <button
               key={g}                                            // Chave única para cada botão
               type="button"                                      // Tipo do botão
@@ -93,11 +91,11 @@ export default function Testimonials() {
 
         {/* Grid que lista os depoimentos filtrados */}
         <div className="cards-grid">
-          {filtered.map((student, index) => (
-            <div key={`${student.name}-${index}`} className="testimonial-card">
+          {filtered.map((student, index) => ( // Mapeia cada depoimento filtrado
+            <div key={`${student.name}-${index}`} className="testimonial-card"> 
               
               {/* Avatar colorido com a inicial do nome */}
-              <div className="avatar" style={{ background: student.color }}>
+              <div className="avatar" style={{ background: student.color }}> 
                 {student.name.charAt(0).toUpperCase()}
               </div>
 
@@ -113,13 +111,13 @@ export default function Testimonials() {
                 {/* Vídeo opcional */}
                 {student.video && (
                   <video className="testimonial-video" controls>
-                    <source src={student.video} type="video/mp4" />
+                    <source src={student.video} type="video/mp4" /> 
                     Seu navegador não suporta vídeos.
                   </video>
                 )}
 
                 {/* Estrelas de avaliação */}
-                <div className="stars">★★★★★</div>
+                <div className="stars">★★★★★</div> 
               </div>
             </div>
           ))}

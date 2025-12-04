@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export default function NavBar() {
   return (
+    <>
     <nav className="navbar">
       {/* LOGO */}
       <div className="navbar-logo">
@@ -52,5 +53,6 @@ export default function NavBar() {
         IA Especialista
       </Link>
     </nav>
+    </>
   );
 }

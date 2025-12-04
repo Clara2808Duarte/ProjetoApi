@@ -4,6 +4,7 @@ import Julia from "../assets/Julia.jpeg";
 import Kamilly from "../assets/Kamilly.jpeg";
 import Duarte from "../assets/Duarte.jpeg";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import Nav from "../components/NavBar";
 
 
