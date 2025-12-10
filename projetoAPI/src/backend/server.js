@@ -60,7 +60,7 @@ export async function enviarParaGemini(message) {
     // Faz a requisição POST para a API do Gemini
     const res = await axios.post(
       // Endpoint do modelo Gemini específico que você está usando
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite-preview:generateContent",
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
 
       // Corpo da requisição
       {

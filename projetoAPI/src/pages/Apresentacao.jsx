@@ -64,7 +64,7 @@ export default function CardsSection() {
         ))}
       </div>
 
-      <Footer /> {/* Rodapé */}
+      <Footer/> 
 
     </div>
   );
